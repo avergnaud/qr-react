@@ -5,6 +5,7 @@ import jsQR from "jsqr";
 // https://reactjs.org/docs/refs-and-the-dom.html
 
 export class QrReader extends Component {
+
   constructor(props) {
     super(props);
 
@@ -12,7 +13,6 @@ export class QrReader extends Component {
     this.videoElement = React.createRef();
     // create a ref to store the canvas DOM element
     this.canvasElement = React.createRef();
-
     this.canvas = null;
 
     this.state = {
@@ -63,7 +63,6 @@ export class QrReader extends Component {
       this.canvasElement.current.width,
       this.canvasElement.current.height
     );
-
     if (
       this.canvasElement.current.width > 0 &&
       this.canvasElement.current.height > 0
@@ -100,7 +99,6 @@ export class QrReader extends Component {
         this.setState({ codeFound: false });
       }
     }
-
     requestAnimationFrame(() => this.tick());
   }
 
@@ -109,10 +107,10 @@ export class QrReader extends Component {
       <div id="main-qr">
         <h1>jsQr Demo</h1>
         <a id="githubLink" href="https://github.com/cozmo/jsQR">
-          View documentation on Github
+          See jsQR on Githubs
         </a>
         <p>
-          Pure JavaScript QR code decoding library. Ready{" "}
+          React QR code decoding. Ready{" "}
           {String(this.state.ready)}
         </p>
         <div id="loading-message" className={this.state.ready ? "hidden" : ""}>
