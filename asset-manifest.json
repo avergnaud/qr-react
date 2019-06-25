@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/qr-react/static/css/main.2c41fa61.chunk.css",
-    "main.js": "/qr-react/static/js/main.351d4a30.chunk.js",
-    "main.js.map": "/qr-react/static/js/main.351d4a30.chunk.js.map",
+    "main.js": "/qr-react/static/js/main.13dbfd30.chunk.js",
+    "main.js.map": "/qr-react/static/js/main.13dbfd30.chunk.js.map",
     "runtime~main.js": "/qr-react/static/js/runtime~main.10b53de8.js",
     "runtime~main.js.map": "/qr-react/static/js/runtime~main.10b53de8.js.map",
     "static/js/2.853fad5e.chunk.js": "/qr-react/static/js/2.853fad5e.chunk.js",
     "static/js/2.853fad5e.chunk.js.map": "/qr-react/static/js/2.853fad5e.chunk.js.map",
     "index.html": "/qr-react/index.html",
-    "precache-manifest.40424b61c998a3804eaa6d0911dec560.js": "/qr-react/precache-manifest.40424b61c998a3804eaa6d0911dec560.js",
+    "precache-manifest.da29795be0bc617f3d76f221d9373f04.js": "/qr-react/precache-manifest.da29795be0bc617f3d76f221d9373f04.js",
     "service-worker.js": "/qr-react/service-worker.js",
     "static/css/main.2c41fa61.chunk.css.map": "/qr-react/static/css/main.2c41fa61.chunk.css.map"
   }
