@@ -1,12 +1,12 @@
 # QrReact
 
-[demo](https://avergnaud.github.io/qr-react)
-
 compare this to [other qr-* projects](https://github.com/avergnaud?utf8=%E2%9C%93&tab=repositories&q=qr)
 
 react qr reader / [jsqr](https://github.com/cozmo/jsQR)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![mobile](capture_mobile.gif)
 
 ## Available Scripts
 
@@ -27,9 +27,9 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+KO depuis config-overrides.js et web worker... produit un répertoire build vide. Il faudrait éditer le `webpack.config.js`
 
-### `npm run deploy`
+## partie web worker
 
-(using gh-pages)
+https://medium.com/@danilog1905/how-to-use-web-workers-with-react-create-app-and-not-ejecting-in-the-attempt-3718d2a1166b
+

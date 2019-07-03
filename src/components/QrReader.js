@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./QrReader.scss";
-import jsQR from "jsqr";
+import Worker from './qr.worker';
 
 // https://reactjs.org/docs/refs-and-the-dom.html
 
@@ -14,13 +14,15 @@ export class QrReader extends Component {
     // create a ref to store the canvas DOM element
     this.canvasElement = React.createRef();
     this.canvas = null;
+    this.worker = new Worker();
 
     this.state = {
       ready: false,
       loadingMessage:
         "🎥 Unable to access video stream (please make sure you have a webcam enabled)",
       codeFound: false,
-      qrCodeValue: ""
+      qrCodeValue: "",
+      result: "No QR code detected..."
     };
   }
 
@@ -34,6 +36,33 @@ export class QrReader extends Component {
         /* https://developer.mozilla.org/fr/docs/Web/API/Window/requestAnimationFrame */
         requestAnimationFrame(() => this.tick());
       });
+      
+      this.worker.onmessage = ({ data }) => {
+        let code = data;
+        if (code) {
+          this.drawLine(
+            code.location.topLeftCorner,
+            code.location.topRightCorner
+          );
+          this.drawLine(
+            code.location.topRightCorner,
+            code.location.bottomRightCorner
+          );
+          this.drawLine(
+            code.location.bottomRightCorner,
+            code.location.bottomLeftCorner
+          );
+          this.drawLine(
+            code.location.bottomLeftCorner,
+            code.location.topLeftCorner
+          );
+          this.codeFound = true;
+          this.setState({ result: code.data });
+        } else {
+          this.codeFound = false;
+          requestAnimationFrame(() => this.tick());
+        }
+      };
   }
 
   drawLine(begin, end) {
@@ -73,46 +102,16 @@ export class QrReader extends Component {
         this.canvasElement.current.width,
         this.canvasElement.current.height
       );
-      var code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert"
-      });
-      if (code) {
-        this.drawLine(
-          code.location.topLeftCorner,
-          code.location.topRightCorner
-        );
-        this.drawLine(
-          code.location.topRightCorner,
-          code.location.bottomRightCorner
-        );
-        this.drawLine(
-          code.location.bottomRightCorner,
-          code.location.bottomLeftCorner
-        );
-        this.drawLine(
-          code.location.bottomLeftCorner,
-          code.location.topLeftCorner
-        );
-        this.setState({ codeFound: true });
-        this.setState({ qrCodeValue: code.data });
-      } else {
-        this.setState({ codeFound: false });
-      }
+      this.worker.postMessage(imageData);
+    } else {
+      requestAnimationFrame(() => this.tick());
     }
-    requestAnimationFrame(() => this.tick());
   }
 
   render() {
     return (
       <div id="main-qr">
-        <h1>jsQr Demo</h1>
-        <a id="githubLink" href="https://github.com/cozmo/jsQR">
-          See jsQR on Githubs
-        </a>
-        <p>
-          React QR code decoding. Ready{" "}
-          {String(this.state.ready)}
-        </p>
+        <h1>jsQr React WebWorker</h1>
         <div id="loading-message" className={this.state.ready ? "hidden" : ""}>
           {this.state.loadingMessage}
         </div>
@@ -126,7 +125,7 @@ export class QrReader extends Component {
             id="outputMessage"
             className={this.state.codeFound ? "hidden" : ""}
           >
-            No QR code detected.
+            {this.state.result}
           </div>
           <div className={this.state.codeFound ? "" : "hidden"}>
             <b>Data:</b> <span id="outputData">{this.state.qrCodeValue}</span>
